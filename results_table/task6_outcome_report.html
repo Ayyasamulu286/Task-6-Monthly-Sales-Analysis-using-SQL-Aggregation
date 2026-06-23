@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Task 6 – Sales Trend Analysis | Outcome Report</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f4f6fb; color: #222; }
+  header { background: linear-gradient(135deg, #1a237e, #3949ab); color: #fff; padding: 32px 40px; }
+  header h1 { font-size: 26px; letter-spacing: 1px; }
+  header p { margin-top: 6px; font-size: 14px; opacity: 0.85; }
+  .badge { display: inline-block; background: #ff6f00; color:#fff; font-size:11px; padding:3px 10px; border-radius:20px; margin-top:10px; }
+  main { max-width: 1000px; margin: 30px auto; padding: 0 20px 60px; }
+  section { background:#fff; border-radius:10px; box-shadow:0 2px 12px rgba(0,0,0,.08); margin-bottom:28px; padding:28px 32px; }
+  h2 { font-size:17px; color:#1a237e; border-left:4px solid #3949ab; padding-left:12px; margin-bottom:18px; }
+  h3 { font-size:14px; color:#37474f; margin:20px 0 10px; }
+  table { width:100%; border-collapse:collapse; font-size:13.5px; }
+  th { background:#3949ab; color:#fff; padding:10px 14px; text-align:left; }
+  td { padding:9px 14px; border-bottom:1px solid #e8eaf6; }
+  tr:last-child td { border-bottom:none; }
+  tr:nth-child(even) td { background:#f5f7ff; }
+  .highlight td { background:#fff3e0 !important; font-weight:bold; color:#e65100; }
+  .kpi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .kpi { background:#e8eaf6; border-radius:8px; padding:18px 20px; text-align:center; }
+  .kpi .val { font-size:28px; font-weight:700; color:#1a237e; }
+  .kpi .lbl { font-size:12px; color:#555; margin-top:4px; }
+  pre { background:#1e1e2e; color:#cdd6f4; border-radius:8px; padding:20px; font-size:12.5px; overflow-x:auto; line-height:1.7; }
+  .keyword { color:#89b4fa; }
+  .func    { color:#a6e3a1; }
+  .comment { color:#6c7086; font-style:italic; }
+  .string  { color:#f9e2af; }
+  .ans-block { background:#f1f8e9; border-left:4px solid #43a047; padding:14px 18px; border-radius:6px; margin-bottom:14px; }
+  .ans-block strong { color:#1b5e20; }
+  footer { text-align:center; font-size:12px; color:#999; padding:20px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>📊 Task 6 – Sales Trend Analysis Using Aggregations</h1>
+  <p>Data Analyst Internship &nbsp;|&nbsp; DataX Labs</p>
+  <span class="badge">OUTCOME REPORT</span>
+</header>
+
+<main>
+
+<!-- KPI Summary -->
+<section>
+  <h2>📌 Dataset Overview</h2>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="val">20</div><div class="lbl">Total Orders</div></div>
+    <div class="kpi"><div class="val">₹15,450</div><div class="lbl">Total Revenue</div></div>
+    <div class="kpi"><div class="val">6</div><div class="lbl">Months (Jan–Jun 2025)</div></div>
+  </div>
+  <p style="margin-top:16px;font-size:13px;color:#555;">
+    <strong>Columns:</strong> order_id, order_date, amount, product_id &nbsp;|&nbsp;
+    <strong>Products:</strong> P101, P102, P103, P104, P105
+  </p>
+</section>
+
+<!-- Query 1 Result -->
+<section>
+  <h2>📅 Query 1 – Monthly Revenue &amp; Order Volume</h2>
+  <table>
+    <thead><tr><th>Year</th><th>Month</th><th>Total Revenue (₹)</th><th>Order Volume</th></tr></thead>
+    <tbody>
+      <tr><td>2025</td><td>January</td><td>1,500</td><td>3</td></tr>
+      <tr><td>2025</td><td>February</td><td>1,800</td><td>3</td></tr>
+      <tr><td>2025</td><td>March</td><td>2,800</td><td>4</td></tr>
+      <tr><td>2025</td><td>April</td><td>2,750</td><td>3</td></tr>
+      <tr><td>2025</td><td>May</td><td>2,650</td><td>3</td></tr>
+      <tr class="highlight"><td>2025</td><td>June ⭐</td><td>3,950</td><td>4</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:10px;font-size:12.5px;color:#888;">⭐ June 2025 is the highest revenue month.</p>
+</section>
+
+<!-- Query 2 Result -->
+<section>
+  <h2>🏆 Query 2 – Top 3 Months by Revenue</h2>
+  <table>
+    <thead><tr><th>Rank</th><th>Year</th><th>Month</th><th>Total Revenue (₹)</th><th>Order Volume</th></tr></thead>
+    <tbody>
+      <tr><td>🥇 1</td><td>2025</td><td>June</td><td>3,950</td><td>4</td></tr>
+      <tr><td>🥈 2</td><td>2025</td><td>March</td><td>2,800</td><td>4</td></tr>
+      <tr><td>🥉 3</td><td>2025</td><td>April</td><td>2,750</td><td>3</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Query 3 Result -->
+<section>
+  <h2>📦 Query 3 – Revenue by Product Per Month</h2>
+  <table>
+    <thead><tr><th>Month</th><th>Product</th><th>Revenue (₹)</th><th>Orders</th></tr></thead>
+    <tbody>
+      <tr><td>2025-01</td><td>P102</td><td>700</td><td>1</td></tr>
+      <tr><td>2025-01</td><td>P101</td><td>500</td><td>1</td></tr>
+      <tr><td>2025-01</td><td>P103</td><td>300</td><td>1</td></tr>
+      <tr><td>2025-02</td><td>P101</td><td>800</td><td>1</td></tr>
+      <tr><td>2025-02</td><td>P104</td><td>600</td><td>1</td></tr>
+      <tr><td>2025-02</td><td>P105</td><td>400</td><td>1</td></tr>
+      <tr><td>2025-03</td><td>P102</td><td>900</td><td>1</td></tr>
+      <tr><td>2025-03</td><td>P103</td><td>750</td><td>1</td></tr>
+      <tr><td>2025-03</td><td>P104</td><td>650</td><td>1</td></tr>
+      <tr><td>2025-03</td><td>P105</td><td>500</td><td>1</td></tr>
+      <tr><td>2025-04</td><td>P101</td><td>1,200</td><td>1</td></tr>
+      <tr><td>2025-04</td><td>P102</td><td>850</td><td>1</td></tr>
+      <tr><td>2025-04</td><td>P103</td><td>700</td><td>1</td></tr>
+      <tr><td>2025-05</td><td>P105</td><td>1,100</td><td>1</td></tr>
+      <tr><td>2025-05</td><td>P104</td><td>950</td><td>1</td></tr>
+      <tr><td>2025-05</td><td>P101</td><td>600</td><td>1</td></tr>
+      <tr class="highlight"><td>2025-06</td><td>P102 ⭐</td><td>1,300</td><td>1</td></tr>
+      <tr><td>2025-06</td><td>P105</td><td>1,000</td><td>1</td></tr>
+      <tr><td>2025-06</td><td>P103</td><td>900</td><td>1</td></tr>
+      <tr><td>2025-06</td><td>P104</td><td>750</td><td>1</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Query 4 Result -->
+<section>
+  <h2>📈 Query 4 – Cumulative Revenue Over Time</h2>
+  <table>
+    <thead><tr><th>Month</th><th>Monthly Revenue (₹)</th><th>Cumulative Revenue (₹)</th></tr></thead>
+    <tbody>
+      <tr><td>2025-01</td><td>1,500</td><td>1,500</td></tr>
+      <tr><td>2025-02</td><td>1,800</td><td>3,300</td></tr>
+      <tr><td>2025-03</td><td>2,800</td><td>6,100</td></tr>
+      <tr><td>2025-04</td><td>2,750</td><td>8,850</td></tr>
+      <tr><td>2025-05</td><td>2,650</td><td>11,500</td></tr>
+      <tr class="highlight"><td>2025-06</td><td>3,950</td><td>15,450 ✅</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- SQL Script -->
+<section>
+  <h2>🗃️ SQL Script (SQLite)</h2>
+<pre>
+<span class="comment">-- QUERY 1: Monthly Revenue & Order Volume</span>
+<span class="keyword">SELECT</span>
+    <span class="func">strftime</span>(<span class="string">'%Y'</span>, order_date)  <span class="keyword">AS</span> year,
+    <span class="func">strftime</span>(<span class="string">'%m'</span>, order_date)  <span class="keyword">AS</span> month,
+    <span class="func">SUM</span>(amount)                 <span class="keyword">AS</span> total_revenue,
+    <span class="func">COUNT</span>(<span class="keyword">DISTINCT</span> order_id)    <span class="keyword">AS</span> order_volume
+<span class="keyword">FROM</span> online_sales
+<span class="keyword">GROUP BY</span> year, month
+<span class="keyword">ORDER BY</span> year, month;
+
+<span class="comment">-- QUERY 2: Top 3 months by revenue</span>
+<span class="keyword">SELECT</span>
+    <span class="func">strftime</span>(<span class="string">'%Y'</span>, order_date)  <span class="keyword">AS</span> year,
+    <span class="func">strftime</span>(<span class="string">'%m'</span>, order_date)  <span class="keyword">AS</span> month,
+    <span class="func">SUM</span>(amount)                 <span class="keyword">AS</span> total_revenue,
+    <span class="func">COUNT</span>(<span class="keyword">DISTINCT</span> order_id)    <span class="keyword">AS</span> order_volume
+<span class="keyword">FROM</span> online_sales
+<span class="keyword">GROUP BY</span> year, month
+<span class="keyword">ORDER BY</span> total_revenue <span class="keyword">DESC</span>
+<span class="keyword">LIMIT</span> 3;
+
+<span class="comment">-- QUERY 3: Revenue by product per month</span>
+<span class="keyword">SELECT</span>
+    <span class="func">strftime</span>(<span class="string">'%Y-%m'</span>, order_date) <span class="keyword">AS</span> year_month,
+    product_id,
+    <span class="func">SUM</span>(amount)                  <span class="keyword">AS</span> product_revenue,
+    <span class="func">COUNT</span>(<span class="keyword">DISTINCT</span> order_id)     <span class="keyword">AS</span> order_count
+<span class="keyword">FROM</span> online_sales
+<span class="keyword">GROUP BY</span> year_month, product_id
+<span class="keyword">ORDER BY</span> year_month, product_revenue <span class="keyword">DESC</span>;
+
+<span class="comment">-- QUERY 4: Cumulative revenue (window function)</span>
+<span class="keyword">SELECT</span>
+    <span class="func">strftime</span>(<span class="string">'%Y-%m'</span>, order_date)                                      <span class="keyword">AS</span> year_month,
+    <span class="func">SUM</span>(amount)                                                        <span class="keyword">AS</span> monthly_revenue,
+    <span class="func">SUM</span>(<span class="func">SUM</span>(amount)) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> <span class="func">strftime</span>(<span class="string">'%Y-%m'</span>, order_date))    <span class="keyword">AS</span> cumulative_revenue
+<span class="keyword">FROM</span> online_sales
+<span class="keyword">GROUP BY</span> year_month
+<span class="keyword">ORDER BY</span> year_month;
+
+<span class="comment">-- QUERY 5: NULL-safe aggregation using COALESCE</span>
+<span class="keyword">SELECT</span>
+    <span class="func">strftime</span>(<span class="string">'%Y-%m'</span>, order_date)   <span class="keyword">AS</span> year_month,
+    <span class="func">SUM</span>(<span class="func">COALESCE</span>(amount, 0))        <span class="keyword">AS</span> total_revenue,
+    <span class="func">COUNT</span>(<span class="keyword">DISTINCT</span> order_id)       <span class="keyword">AS</span> order_volume
+<span class="keyword">FROM</span> online_sales
+<span class="keyword">GROUP BY</span> year_month
+<span class="keyword">ORDER BY</span> year_month;
+</pre>
+</section>
+
+<!-- Interview Q&A -->
+<section>
+  <h2>🎤 Interview Questions – Answers</h2>
+
+  <div class="ans-block">
+    <strong>1. How do you group data by month and year?</strong>
+    <p style="margin-top:6px;font-size:13px;">Use <code>GROUP BY EXTRACT(YEAR FROM order_date), EXTRACT(MONTH FROM order_date)</code> in PostgreSQL, or <code>strftime('%Y', order_date), strftime('%m', order_date)</code> in SQLite. This groups all rows sharing the same year-month together for aggregation.</p>
+  </div>
+
+  <div class="ans-block">
+    <strong>2. What's the difference between COUNT(*) and COUNT(DISTINCT col)?</strong>
+    <p style="margin-top:6px;font-size:13px;"><code>COUNT(*)</code> counts every row including duplicates and NULLs. <code>COUNT(DISTINCT col)</code> counts only unique non-NULL values in that column. For order volume we use <code>COUNT(DISTINCT order_id)</code> to avoid counting duplicate entries of the same order.</p>
+  </div>
+
+  <div class="ans-block">
+    <strong>3. How do you calculate monthly revenue?</strong>
+    <p style="margin-top:6px;font-size:13px;">Use <code>SUM(amount)</code> paired with <code>GROUP BY year, month</code>. This sums all order amounts within each month, giving the total revenue for that month.</p>
+  </div>
+
+  <div class="ans-block">
+    <strong>4. What are aggregate functions in SQL?</strong>
+    <p style="margin-top:6px;font-size:13px;">Aggregate functions operate on a set of rows and return a single value. Common ones: <code>SUM()</code>, <code>COUNT()</code>, <code>AVG()</code>, <code>MIN()</code>, <code>MAX()</code>. They are used with <code>GROUP BY</code> to compute statistics per group.</p>
+  </div>
+
+  <div class="ans-block">
+    <strong>5. How to handle NULLs in aggregates?</strong>
+    <p style="margin-top:6px;font-size:13px;">Most aggregate functions ignore NULLs automatically (e.g., <code>SUM()</code> skips NULL rows). To explicitly treat NULLs as zero, use <code>COALESCE(amount, 0)</code> inside the aggregate: <code>SUM(COALESCE(amount, 0))</code>.</p>
+  </div>
+
+  <div class="ans-block">
+    <strong>6. What's the role of ORDER BY and GROUP BY?</strong>
+    <p style="margin-top:6px;font-size:13px;"><code>GROUP BY</code> defines how rows are combined into groups for aggregation (e.g., by month). <code>ORDER BY</code> sorts the final result set for readability or ranking (e.g., ascending by date, or descending by revenue).</p>
+  </div>
+
+  <div class="ans-block">
+    <strong>7. How do you get the top 3 months by sales?</strong>
+    <p style="margin-top:6px;font-size:13px;">Group by year/month, apply <code>SUM(amount)</code>, then sort with <code>ORDER BY total_revenue DESC</code> and restrict with <code>LIMIT 3</code>. Result: June (₹3,950) → March (₹2,800) → April (₹2,750).</p>
+  </div>
+</section>
+
+<!-- Key Insights -->
+<section>
+  <h2>💡 Key Insights from the Analysis</h2>
+  <ul style="font-size:13.5px;line-height:2;padding-left:20px;">
+    <li>Revenue shows a <strong>consistent upward trend</strong> from ₹1,500 in January to ₹3,950 in June 2025.</li>
+    <li><strong>June 2025</strong> is the best month with ₹3,950 revenue across 4 orders.</li>
+    <li><strong>P102</strong> is the top-performing product, generating ₹1,300 in June alone.</li>
+    <li>Total cumulative revenue for the 6-month period: <strong>₹15,450</strong>.</li>
+    <li>Months with 4 orders (March, June) consistently outperform 3-order months.</li>
+  </ul>
+</section>
+
+</main>
+<footer>Task 6 | DataX Labs Data Analyst Internship | SQLite Analysis</footer>
+</body>
+</html>
